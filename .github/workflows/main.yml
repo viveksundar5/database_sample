@@ -48,14 +48,14 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
           
-      - name: Build and analyze
+      - name: Run SonarQube Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
           echo "SONAR URL - > " ${{vars.SONAR_HOST_URL}}
-          export SONAR_HOST_URL=${{vars.SONAR_HOST_URL}}
+          #export SONAR_HOST_URL=${{vars.SONAR_HOST_URL}}
           #export SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" 
           dotnet build
