@@ -46,7 +46,7 @@ jobs:
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
            mvn install sonar:sonar \
-          -D sonar.projectKey=sql-server-test\
+        
           
       - name: Push Artifact
         uses: actions/upload-artifact@v3.1.2
