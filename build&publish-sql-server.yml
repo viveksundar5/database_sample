@@ -1,0 +1,38 @@
+name: Build and publish DB artifact
+
+on: workflow_dispatch
+#  push:
+#    branches: 
+#      - main
+
+jobs:
+
+  # Job to build and publish the dacpac
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, 
+      - uses: actions/checkout@v3.3.0
+
+      # Build dacpac using dotnet build
+      - name: Build Database project
+        run: |
+          dotnet build
+          
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      # If you wish to fail your job when the Quality Gate is red, uncomment the
+      # following lines. This would typically be used to fail a deployment.
+      # - uses: sonarsource/sonarqube-quality-gate-action@master
+      #   timeout-minutes: 5
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # Publish artifact
+      - uses: actions/upload-artifact@v3.1.2
+        with:
+          name: sqldb
+          path: ${{ github.workspace }}/bin/Debug/ 
