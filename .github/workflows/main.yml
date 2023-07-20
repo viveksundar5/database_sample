@@ -51,6 +51,7 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" 
@@ -58,6 +59,7 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=admin -d sonar.password=admin123 /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}"
            echo "SONAR URL - > " ${{vars.SONAR_HOST_URL}}
            export SONAR_HOST_URL=${{vars.SONAR_HOST_URL}}
+           #export SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}
            
       - name: Push Artifact
         uses: actions/upload-artifact@v3.1.2
