@@ -51,14 +51,7 @@ jobs:
        #run: |
         # New-Item -Path .\.sonar\scanner -ItemType Directory
         # dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-          
-      - name: Build and analyze
-        env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        run: |
-         .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login=admin -d sonar.password=admin123
-           dotnet build
-      
+        
       - name: Run SonarQube Scan
         run: |
           echo "SONAR URL - > " ${{vars.SONAR_HOST_URL}}
@@ -68,6 +61,15 @@ jobs:
             -D sonar.projectKey=sql-server-test \
             -D sonar.host.url=$SONAR_HOST_URL \
             -D sonar.login=admin -D sonar.password=admin123
+          
+      - name: Build and analyze
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        run: |
+         .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login=admin -d sonar.password=admin123
+           dotnet build
+      
+      
          
       - name: Push Artifact
         uses: actions/upload-artifact@v3.1.2
