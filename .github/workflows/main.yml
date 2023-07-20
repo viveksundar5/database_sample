@@ -53,6 +53,7 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login="${{env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONAR_HOST_URL }}"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{env.SONAR_TOKEN }}"
+          -D sonar.login=admin -D sonar.password=admin123 
           
           
       - name: Push Artifact
