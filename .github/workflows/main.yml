@@ -59,7 +59,9 @@ jobs:
           #export SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" 
           dotnet build
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=admin -d sonar.password=admin123 /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}"
+          -D sonar.projectKey=test-maven-project \
+            -D sonar.host.url=$SONAR_HOST_URL \
+            -D sonar.login=admin -D sonar.password=admin123 
          
            
       - name: Push Artifact
