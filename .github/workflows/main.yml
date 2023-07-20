@@ -1,11 +1,11 @@
 name: build,test,upload sql server
 
 on:
-  #workflow_dispatch:
-  workflow_call:
-    secrets:
-      Workflow2_PAT_TOKEN_GITHUB:
-              required: true
+  workflow_dispatch:
+  #workflow_call:
+    #secrets:
+      #Workflow2_PAT_TOKEN_GITHUB:
+              #required: true
 #  push:
 #    branches:
 #      - main
@@ -56,6 +56,12 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          
+      - name: Run SonarQube Scan
+        run: |
+          echo "SONAR URL - > " ${{vars.SONAR_HOST_URL}}
+          #export SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}
+          export SONAR_HOST_URL=${{vars.SONAR_HOST_URL}}
            -D sonar.projectKey=sql-server-test \
             -D sonar.host.url=$SONAR_HOST_URL \
             -D sonar.login=admin -D sonar.password=admin123 
