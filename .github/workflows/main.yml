@@ -31,7 +31,7 @@ jobs:
           #export SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}
           export SONAR_HOST_URL=${{vars.SONAR_HOST_URL}}
           mvn install sonar:sonar \
-            -D sonar.projectKey=test-maven-project \
+            -D sonar.projectKey=sql-server-test \
             -D sonar.host.url=$SONAR_HOST_URL \
             -D sonar.login=admin -D sonar.password=admin123 
              
