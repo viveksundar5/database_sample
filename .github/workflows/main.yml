@@ -1,9 +1,16 @@
 name: build,test,upload sql server
 
-on: workflow_dispatch
-#  push:
-#    branches:
-#      - main
+on: 
+  workflow_dispatch
+   #workflow_call:
+    #secrets:
+      #Workflow2_PAT_TOKEN_GITHUB:
+        #required: true
+
+env:
+    TOKEN: ${{ secrets.SONAR_TOKEN }}
+    URL: ${{ secrets.SONAR_HOST_URL }}
+
 
 
 jobs:
@@ -47,9 +54,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login="$TOKEN" /d:sonar.host.url="$URL"
           dotnet build
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="$TOKEN"
           
       - name: Push Artifact
         uses: actions/upload-artifact@v3.1.2
