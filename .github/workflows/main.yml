@@ -37,13 +37,13 @@ jobs:
          key: ${{ runner.os }}-sonar
          restore-keys: ${{ runner.os }}-sonar
           
-      #- name: Cache SonarQube scanner
-        #id: cache-sonar-scanner
-        #uses: actions/cache@v1
-        #with:
-         # path: .\.sonar\scanner
-         # key: ${{ runner.os }}-sonar-scanner
-          #restore-keys: ${{ runner.os }}-sonar-scanner
+      - name: Cache SonarQube scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v1
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
           
       # name: Install SonarQube scanner
        #if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
@@ -52,13 +52,12 @@ jobs:
         # New-Item -Path .\.sonar\scanner -ItemType Directory
         # dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
           
-     #- name: Build and analyze
-       #env:
-      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-       #shell: powershell
-       #run: |
-        # .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login=admin -d sonar.password=admin123
-         #  dotnet build
+      - name: Build and analyze
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        run: |
+         .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login=admin -d sonar.password=admin123
+           dotnet build
       
       - name: Run SonarQube Scan
         run: |
