@@ -1,11 +1,11 @@
 name: build,test,upload sql server
 
 on: 
-#workflow_dispatch
- workflow_call:
-    secrets:
-      Workflow2_PAT_TOKEN_GITHUB:
-        required: true
+ workflow_dispatch
+ #workflow_call:
+    #secrets:
+      #Workflow2_PAT_TOKEN_GITHUB:
+        #required: true
 
 
 env:
