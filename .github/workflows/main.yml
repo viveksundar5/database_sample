@@ -9,12 +9,15 @@ on:
 #  push:
 #    branches:
 #      - main
+env:
+  JAVA_VERSION: '11' 
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
 jobs:
   build:
     name: Build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v2
@@ -51,8 +54,7 @@ jobs:
       - name: Run SonarQube Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
+          #shell: powershell
         run: |
           echo "SONAR URL - > " ${{vars.SONAR_HOST_URL}}
           #export SONAR_HOST_URL=${{vars.SONAR_HOST_URL}}
