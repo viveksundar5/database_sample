@@ -54,8 +54,6 @@ jobs:
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{env.SONAR_TOKEN }}"
          
-          
-          
       - name: Push Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
