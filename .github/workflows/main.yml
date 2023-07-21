@@ -54,7 +54,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         shell: powershell
         run: |
-         #.\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login="${{$env.TOKEN }}" /d:sonar.host.url="${{ env.URL }}"
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"sql-server-test" /d:sonar.login="$env:TOKEN" /d:sonar.host.url="$env:URL"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="$env:TOKEN"
