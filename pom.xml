@@ -1,6 +1,15 @@
 <plugin>
-    <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-ant run-plugin</artifactId>
+    <groupId>database.app</groupId> <artifactId>database-sonar-package</artifactId>
     <version>1.1</version>
+
+ <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/viveksundar5/database_sample</url>
+    </repository>
+  </distributionManagement> 
+    
     <executions>
         <execution>
             <id>create-Database</id>
