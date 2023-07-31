@@ -73,7 +73,7 @@
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/viveksundar5/simple-java-maven-app</url>
+      <url>https://maven.pkg.github.com/viveksundar5/database_sample</url>
     </repository>
   </distributionManagement>
 </project>
