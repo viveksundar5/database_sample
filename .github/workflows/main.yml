@@ -1,15 +1,15 @@
 name: build,test,upload sql server
 
 on: 
-  #workflow_dispatch
-   workflow_call:
-    secrets:
-      Workflow2_PAT_TOKEN_GITHUB:
-        required: true
-      SONAR_TOKEN:
-        required: true
-      SONAR_HOST_URL:
-        required: true
+  workflow_dispatch
+   #workflow_call:
+    #secrets:
+      #Workflow2_PAT_TOKEN_GITHUB:
+        #required: true
+      #SONAR_TOKEN:
+       # required: true
+     # SONAR_HOST_URL:
+       # required: true
 
 env:
   TOKEN: ${{ secrets.SONAR_TOKEN }}
