@@ -65,8 +65,8 @@ jobs:
           
       - name: Publish to GitHub Packages
         run: |
-          echo "::set-env name=MYSQL_SCRIPT::$(cat path/to/your/script.sql)"
-          echo $MYSQL_SCRIPT > script.sql
+          echo "::set-env name=MYSQL_SCRIPT::$(cat dbo/tablea.sql)"
+          echo $MYSQL_SCRIPT > tablea.sql
           echo $GITHUB_TOKEN | gh auth login --with-token
           gh package publish --target 'mysql-database-script' script.sql
         env:
