@@ -63,8 +63,11 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="$env:TOKEN"
           
           
-      - name: Push Artifact
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: sqldb
-          path: ${{ github.workspace }}/bin/Debug/ 
+      - name: Publish to GitHub Packages
+        run: |
+          echo "::set-env name=MYSQL_SCRIPT::$(cat path/to/your/script.sql)"
+          echo $MYSQL_SCRIPT > script.sql
+          echo $GITHUB_TOKEN | gh auth login --with-token
+          gh package publish --target 'mysql-database-script' script.sql
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
